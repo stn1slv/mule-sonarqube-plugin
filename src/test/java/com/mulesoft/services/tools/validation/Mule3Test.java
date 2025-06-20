@@ -3,7 +3,7 @@ package com.mulesoft.services.tools.validation;
 import java.io.File;
 import java.io.IOException;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import org.junit.Before;
 import org.junit.Test;

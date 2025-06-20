@@ -8,7 +8,7 @@
 
 package com.mulesoft.services.tools.validation.rules;
 
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.annotation.XmlRegistry;
 
 
 /**
