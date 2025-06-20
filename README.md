@@ -63,7 +63,7 @@ docker run -d --name sonarqube-mule -p 9000:9000 stn1slv/sonarqube-for-mule:9.9
 
 1. **Build the Plugin**:
    ```bash
-   git clone https://github.com/your-username/mule-sonarqube-plugin.git
+   git clone https://github.com/stn1slv/mule-sonarqube-plugin.git
    cd mule-sonarqube-plugin
    mvn clean package
    ```
@@ -80,7 +80,7 @@ docker run -d --name sonarqube-mule -p 9000:9000 stn1slv/sonarqube-for-mule:9.9
 
 4. **Restart SonarQube**
 
-This is an [UNLICENSED software, please review the considerations](UNLICENSE.md). If you need assistance for extending this, contact MuleSoft Professional Services
+This is an [UNLICENSED software, please review the considerations](UNLICENSE.md). 
 
 ## 🔧 Configuration
 
