@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import org.sonar.api.rule.RuleStatus;
 import org.sonar.api.rule.Severity;
