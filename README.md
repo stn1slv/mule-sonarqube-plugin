@@ -5,7 +5,7 @@
 [![Java Version](https://img.shields.io/badge/Java-17+-orange.svg)](https://openjdk.java.net/)
 [![License](https://img.shields.io/badge/License-UNLICENSE-red.svg)](UNLICENSE.md)
 
-A comprehensive SonarQube plugin designed to validate and analyze Mule applications' configuration files. This plugin provides static code analysis capabilities specifically tailored for MuleSoft applications, supporting both Mule 3.x and Mule 4.x runtimes.
+A comprehensive SonarQube plugin designed to validate and analyze Mule applications' configuration files. This plugin provides static code analysis capabilities specifically tailored for MuleSoft applications, supporting the Mule 4.x runtime.
 
 ## 🚀 Quick Start with Docker
 
@@ -40,7 +40,7 @@ Access SonarQube at `http://localhost:9000` (default credentials: admin/admin)
 
 ## ✨ Features
 
-- **Multi-Version Support**: Compatible with both Mule 3.x and Mule 4.x applications
+- **Mule 4.x Support**: Compatible with Mule 4.x applications
 - **Comprehensive Rule Set**: 50+ predefined rules covering best practices and common issues
 - **Custom Metrics**: Specialized metrics for Mule applications (flows, subflows, transformations)
 - **Quality Gates**: Enforce quality standards in your CI/CD pipeline
@@ -70,9 +70,7 @@ docker run -d --name sonarqube-mule -p 9000:9000 stn1slv/sonarqube-for-mule:9.9
 
 2. **Install Plugin**:
    - Copy `target/mule-validation-sonarqube-plugin-*.jar` to `<sonar-home>/extensions/plugins/`
-   - Copy rule files to `<sonar-home>/extensions/plugins/`:
-     - `rules-3.xml` (for Mule 3.x)
-     - `rules-4.xml` (for Mule 4.x)
+   - Copy the `rules-4.xml` rule file for Mule 4.x to `<sonar-home>/extensions/plugins/`
 
 3. **Configure XML Plugin**:
    - Go to Administration → Configuration → General Settings → XML
@@ -86,14 +84,9 @@ This is an [UNLICENSED software, please review the considerations](UNLICENSE.md)
 
 ### Project Configuration
 
-#### Quality Profile Selection
+#### Quality Profile
 
-By default, the Mule 4.x quality profile is active. For Mule 3.x projects:
-
-1. Go to Project → Administration → Quality Profiles
-2. Select "MuleSoft Rules for Mule 3.x" for the Mule language
-
-![Quality Profiles Configuration](/img/quality-profiles-conf.png)
+The "MuleSoft Rules for Mule 4.x" quality profile is active by default and ready to use.
 
 #### Quality Gate Setup
 
@@ -233,12 +226,7 @@ Create custom rules by defining XPath expressions in the rule store files:
 
 ## 🏷️ Quality Profiles
 
-The plugin provides two built-in quality profiles:
-
-### Mule 3.x Profile
-- **Name**: "MuleSoft Rules for Mule 3.x"
-- **Rules**: Optimized for Mule 3.x syntax and best practices
-- **File**: `rules-3.xml`
+The plugin provides a built-in quality profile for Mule 4.x applications.
 
 ### Mule 4.x Profile (Default)
 - **Name**: "MuleSoft Rules for Mule 4.x"  
@@ -304,7 +292,7 @@ mvn verify
 
 ### Creating Custom Rules
 
-1. **Edit Rule Files**: Modify `src/test/resources/rules-3.xml` or `rules-4.xml`
+1. **Edit Rule Files**: Modify `src/test/resources/rules-4.xml`
 2. **Define XPath**: Create XPath expressions to match code patterns
 3. **Set Attributes**: Configure severity, type, and scope
 4. **Test Rules**: Use the test framework to validate your rules
