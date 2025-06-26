@@ -35,8 +35,7 @@ public class MuleSensor implements Sensor {
 	@Override
 	public void describe(SensorDescriptor descriptor) {
 		descriptor.onlyOnLanguage(MuleLanguage.LANGUAGE_KEY);
-		descriptor.createIssuesForRuleRepositories(MuleRulesDefinition.MULE3_REPOSITORY_KEY,
-				MuleRulesDefinition.MULE4_REPOSITORY_KEY);
+		descriptor.createIssuesForRuleRepositories(MuleRulesDefinition.MULE4_REPOSITORY_KEY);
 	}
 
 	@Override
@@ -64,7 +63,6 @@ public class MuleSensor implements Sensor {
 	}
 
 	public static String getLanguage(SensorContext context) {
-		boolean mule4 = context.activeRules().findByRepository(MuleRulesDefinition.MULE3_REPOSITORY_KEY).isEmpty();
-		return mule4 ? MuleLanguage.LANGUAGE_MULE4_KEY : MuleLanguage.LANGUAGE_MULE3_KEY;
+		return MuleLanguage.LANGUAGE_MULE4_KEY;
 	}
 }

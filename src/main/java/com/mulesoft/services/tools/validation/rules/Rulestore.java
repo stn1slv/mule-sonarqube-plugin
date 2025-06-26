@@ -33,7 +33,6 @@ import jakarta.xml.bind.annotation.XmlType;
  *       &lt;attribute name="type" use="required">
  *         &lt;simpleType>
  *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *             &lt;enumeration value="mule3"/>
  *             &lt;enumeration value="mule4"/>
  *           &lt;/restriction>
  *         &lt;/simpleType>

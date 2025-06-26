@@ -29,7 +29,6 @@ public interface Constants {
 	}
 
 	interface Ruleset {
-		public String MULE3 = "mule3";
 		public String MULE4 = "mule4";
 	}
 

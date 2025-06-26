@@ -15,7 +15,6 @@ public class MuleProperties {
 
 	private static final String MULE_PROP = "mule.properties";
 	private static final String MULE4_PROP = "mule4.properties";
-	private static final String MULE3_PROP = "mule3.properties";
 
 	static private Logger logger = LoggerFactory.getLogger(MuleProperties.class);
 
@@ -36,12 +35,9 @@ public class MuleProperties {
 		if (props.containsKey(language)) {
 			return props.get(language);
 		} else {
-			switch (language) {
-			case MuleLanguage.LANGUAGE_MULE4_KEY:
+			if (language.equals(MuleLanguage.LANGUAGE_MULE4_KEY)) {
 				return loadProp(language, MULE4_PROP);
-			case MuleLanguage.LANGUAGE_MULE3_KEY:
-				return loadProp(language, MULE3_PROP);
-			default:
+			} else {
 				return loadProp(language, MULE_PROP);
 			}
 		}

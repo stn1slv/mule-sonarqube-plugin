@@ -28,7 +28,6 @@ public class MuleRulesDefinition implements RulesDefinition {
 
 	private final Logger logger = Loggers.get(MuleRulesDefinition.class);
 
-	public static String MULE3_REPOSITORY_KEY = "mule3-repository";
 	public static String MULE4_REPOSITORY_KEY = "mule4-repository";
 	public static final String RULE_TEMPLATE_KEY = "mule-rule-template";
 
@@ -46,8 +45,6 @@ public class MuleRulesDefinition implements RulesDefinition {
 
 		logger.info("Working Directory = {}", System.getProperty("user.dir"));
 
-		createRepository(context, MULE3_REPOSITORY_KEY, MuleLanguage.LANGUAGE_KEY, "Mule3 Analyzer",
-				"file:extensions/plugins/rules-3.xml");
 		createRepository(context, MULE4_REPOSITORY_KEY, MuleLanguage.LANGUAGE_KEY, "Mule4 Analyzer",
 				"file:extensions/plugins/rules-4.xml");
 
@@ -87,9 +84,7 @@ public class MuleRulesDefinition implements RulesDefinition {
 
 	private void addRuleTemplate(NewRepository repository, String language) {
 
-		Properties prop = (repository.key().equals(MULE3_REPOSITORY_KEY)
-				? MuleProperties.getProperties(MuleLanguage.LANGUAGE_MULE3_KEY)
-				: MuleProperties.getProperties(MuleLanguage.LANGUAGE_MULE4_KEY));
+		Properties prop = MuleProperties.getProperties(MuleLanguage.LANGUAGE_MULE4_KEY);
 		NewRule x1Rule = repository.createRule(RULE_TEMPLATE_KEY).setName(prop.getProperty("rule.template.name"))
 				.setHtmlDescription(prop.getProperty("rule.template.description"));
 

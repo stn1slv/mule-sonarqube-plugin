@@ -34,8 +34,7 @@ public class RuleConsumer implements Consumer<Path> {
 
 	public RuleConsumer(Rulestore store) {
 		this.store = store;
-		xpathProcessor = new XPathProcessor().loadNamespaces(
-				store.getType().equals(Constants.Ruleset.MULE3) ? "namespace-3.properties" : "namespace-4.properties");
+		xpathProcessor = new XPathProcessor().loadNamespaces("namespace-4.properties");
 	}
 
 	@Override
