@@ -1,0 +1,81 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Extract version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      
+    - name: Build plugin
+      run: mvn clean package sonar-packaging:sonar-plugin -Dlanguage=mule
+      
+    - name: Verify built artifacts
+      run: |
+        ls -la target/
+        find target/ -name "*.jar" -type f
+        
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ steps.get_version.outputs.VERSION }}
+        draft: false
+        prerelease: false
+        body: |
+          Release ${{ steps.get_version.outputs.VERSION }} of the Mule SonarQube Plugin
+          
+          ## Assets
+          - `mule-validation-sonarqube-plugin-${{ steps.get_version.outputs.VERSION }}-mule.jar` - Plugin JAR file
+          - `rules-4.xml` - Mule 4 rules configuration
+          
+          ## Installation
+          1. Copy the JAR file to your SonarQube `extensions/plugins` directory
+          2. Copy the rules XML files to the same directory
+          3. Restart SonarQube
+          
+    - name: Upload Plugin JAR
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./target/mule-validation-sonarqube-plugin-${{ steps.get_version.outputs.VERSION }}-mule.jar
+        asset_name: mule-validation-sonarqube-plugin-${{ steps.get_version.outputs.VERSION }}-mule.jar
+        asset_content_type: application/java-archive
+                
+    - name: Upload Mule 4 Rules
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./src/test/resources/rules-4.xml
+        asset_name: rules-4.xml
+        asset_content_type: application/xml
